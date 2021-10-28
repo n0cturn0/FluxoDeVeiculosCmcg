@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\prop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     /**
@@ -42,13 +43,22 @@ class HomeController extends Controller
         return view('aluno');
     }
 
-    public function teste(Request $request)
+    public function inserir(Request $request)
     {
-        $user = Auth::user();
-        $path = $request->file('imagecnh')->store('cnh');
-        dd($path);
+        //$user = Auth::user();
+        //$path = $request->file('imagecnh')->store('cnh');
 
+       // echo $request->proprietario;
+       DB::table('prop')->insert([
+            'proprietario' => $request->proprietario,
+            'cpf'          => $request->cpf,
+            'telefone' => $request->telefone,
+            'fotoname' => $request->file('imagecnh'),
+            'datavalidade' => $request->datadevalidade,
+            'status' => 0,
+            'ano' => 10
 
+        ]);
 
     }
 

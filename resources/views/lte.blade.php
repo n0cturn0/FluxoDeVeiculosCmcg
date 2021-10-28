@@ -8,8 +8,8 @@
 
 @section('content')
 
-<form action="{{ route('inserindo.proprietario') }}" method="POST" enctype="multipart/form-data">
-    @csrf
+<form action="{{ route('inserir') }}" method="POST" enctype="multipart/form-data">
+    {{ csrf_field() }}
     <div class="card-body">
         <div class="form-group">
           <label for="exampleInputEmail1">Proprietário</label>
@@ -43,7 +43,7 @@
 
         <div class="form-group">
             <label for="exampleInputPassword1">Digite da data de validade da sua CNH</label>
-            <input type="date" name="cpf" class="form-control" id="exampleInputPassword1" placeholder="CPF">
+            <input type="date" name="datadevalidade" class="form-control" id="exampleInputPassword1" placeholder="CPF">
           </div>
       <!-- /.card-body -->
 

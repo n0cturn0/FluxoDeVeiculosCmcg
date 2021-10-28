@@ -23,7 +23,7 @@ Route::get('/cadastro', [App\Http\Controllers\UserController::class, 'novousuari
 Route::post('/auth', [App\Http\Controllers\UserController::class, 'auth'])->name('auth.user');
 
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -34,10 +34,12 @@ Route::get('/veiculos', [App\Http\Controllers\HomeController::class, 'veiculos']
 //informacoes do aluno
 Route::get('/aluno', [App\Http\Controllers\HomeController::class, 'aluno'])->name('aluno');
 //testando autenticacao
-Route::post('/teste', [App\Http\Controllers\HomeController::class, 'teste'])->name('inserindo.proprietario');
+Route::post('/inserir', [App\Http\Controllers\HomeController::class, 'inserir'])->name('inserir');
+/*
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin', function () {
        dd('Voce e admin');
     });
 
 });
+*/
