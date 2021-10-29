@@ -26,15 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //$user = Auth::user();
-        //$proprietario = DB::table('prop')->where('id', '=', $user->id)->get();
+        $user = Auth::user();
+        $proprietario = DB::table('prop')->where('userid', '=', $user->id)->first();
 
 
-        //echo $proprietario->id;
-        //dd($proprietario);
 
 
-    return view('home');
+
+
+    return view('home', ['status' => $proprietario->status]);
     }
 
     public function lte()
@@ -53,18 +53,19 @@ class HomeController extends Controller
 
     public function inserir(Request $request)
     {
-        //$user = Auth::user();
+        $user = Auth::user();
         //$path = $request->file('imagecnh')->store('cnh');
 
        // echo $request->proprietario;
        DB::table('prop')->insert([
-            'proprietario' => $request->proprietario,
-            'cpf'          => $request->cpf,
-            'telefone' => $request->telefone,
-            'fotoname' => $request->file('imagecnh'),
-            'datavalidade' => $request->datadevalidade,
-            'status' => 0,
-            'ano' => 10
+            'userid'            => $user->id,
+            'proprietario'      => $request->proprietario,
+            'cpf'               => $request->cpf,
+            'telefone'          => $request->telefone,
+            'fotoname'          => $request->file('imagecnh'),
+            'datavalidade'      => $request->datadevalidade,
+            'status'            => 0,
+            'ano'               => 10
 
         ]);
 
