@@ -15,6 +15,7 @@ class Prop extends Migration
     {
         Schema::create('prop', function (Blueprint $table) {
         $table->id();
+        $table->integer('userid');
         $table->string('proprietario');
         $table->bigInteger('cpf');
         $table->string('telefone');

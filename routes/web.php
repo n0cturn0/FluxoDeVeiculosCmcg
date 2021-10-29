@@ -23,7 +23,7 @@ Route::get('/cadastro', [App\Http\Controllers\UserController::class, 'novousuari
 Route::post('/auth', [App\Http\Controllers\UserController::class, 'auth'])->name('auth.user');
 
 
-//Auth::routes();
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

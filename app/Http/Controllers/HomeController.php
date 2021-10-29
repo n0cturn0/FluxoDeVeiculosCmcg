@@ -26,7 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        //$user = Auth::user();
+        //$proprietario = DB::table('prop')->where('id', '=', $user->id)->get();
+
+
+        //echo $proprietario->id;
+        //dd($proprietario);
+
+
+    return view('home');
     }
 
     public function lte()
