@@ -33,8 +33,10 @@ Route::get('/lteadmin', [App\Http\Controllers\HomeController::class, 'lte'])->na
 Route::get('/veiculos', [App\Http\Controllers\HomeController::class, 'veiculos'])->name('veiculos');
 //informacoes do aluno
 Route::get('/aluno', [App\Http\Controllers\HomeController::class, 'aluno'])->name('aluno');
-//testando autenticacao
+//inserindo dados do proprietario
 Route::post('/inserir', [App\Http\Controllers\HomeController::class, 'inserir'])->name('inserir');
+//Inserindo Veiculos
+Route::post('/insereveiculo', [App\Http\Controllers\HomeController::class, 'inserir_veiculo'])->name('insereveiculo');
 /*
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin', function () {

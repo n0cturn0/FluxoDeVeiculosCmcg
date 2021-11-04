@@ -55,7 +55,6 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         //$path = $request->file('imagecnh')->store('cnh');
-
        // echo $request->proprietario;
        DB::table('prop')->insert([
             'userid'            => $user->id,
@@ -66,9 +65,24 @@ class HomeController extends Controller
             'datavalidade'      => $request->datadevalidade,
             'status'            => 0,
             'ano'               => 10
+        ]);
+    }
+
+    public function inserir_veiculo(Request $request)
+    {
+        $user = Auth::user();
+        DB::table('veiculos')->insert([
+            'userid'            => $user->id,
+            'marca'             => $request->marca,
+            'modelo'            => $request->modelo,
+            'anodefabricacao'   => $request->anofabricacao,
+            'cor'               => $request->cor,
+            'documentoveiculo'  => $request->docveiculo,
+            'status'            => 0,
+            'observacao'        => 0,
+            'ano'               => 10
 
         ]);
-
     }
 
 }
