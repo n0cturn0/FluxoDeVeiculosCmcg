@@ -15,7 +15,7 @@
 
  <!-- Info boxes -->
  <div class="row">
-    @if($status == 0)
+    @if($status != 0)
     <div class="col-12 col-sm-6 col-md-3">
 
       <div class="info-box">
@@ -35,7 +35,17 @@
     </div>
 
     <!-- /.col -->
-    @elseif ($status != 0)
+
+
+
+
+
+
+
+
+
+    
+    @elseif ($status == 0)
     <div class="col-12 col-sm-6 col-md-3">
       <div class="info-box mb-3">
         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
@@ -51,6 +61,51 @@
     <!-- /.col -->
     @endif
     <!-- fix for small devices only -->
+
+
+
+
+    <!-- Veiculos -->
+    @if($status_veiculo != 0)
+    <div class="col-12 col-sm-6 col-md-3">
+
+      <div class="info-box">
+
+        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-exclamation-triangle"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">DOCUMENTO DO VEÍCULO</span>
+          <span class="info-box-number">
+            Falta enviar documento do veículo
+          </span>
+        </div>
+
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+    <!-- /.col -->
+    @elseif ($status_veiculo == 0)
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box mb-3">
+        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">DOCUMENTO DO VEÍCULO </span>
+          <span class="info-box-number">ATUALIZADA</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    @endif
+    <!-- fix for small devices only -->
+
+
+
+
     <div class="clearfix hidden-md-up"></div>
 
 

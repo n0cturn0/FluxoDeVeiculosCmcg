@@ -28,13 +28,32 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $proprietario = DB::table('prop')->where('userid', '=', $user->id)->first();
+        $veiculo = DB::table('veiculos')->where('userid', '=', $user->id)->first();
+        $aluno = DB::table('aluno')->where('userid', '=', $user->id)->first();
 
 
 
+          if (is_null($proprietario)){
+            $status_proprietario = 5;
+           } else {
+            $status_proprietario = $proprietario->status;
+           }
+
+           if (is_null($veiculo )){
+            $status_veiculo = 5;
+          } else {
+            $status_veiculo = $veiculo->status;
+          }
+          if (is_null($aluno )){
+            $status_aluno = 5;
+          } else {
+            $status_aluno = $aluno->status;
+          }
+
+           $data =['status' => $status_proprietario, 'status_veiculo' => $status_veiculo,'status_aluno' => $status_aluno];
 
 
-
-    return view('home', ['status' => $proprietario->status]);
+     return view('home',  $data);
     }
 
     public function lte()
@@ -54,9 +73,7 @@ class HomeController extends Controller
     public function inserir(Request $request)
     {
         $user = Auth::user();
-        //$path = $request->file('imagecnh')->store('cnh');
-       // echo $request->proprietario;
-       DB::table('prop')->insert([
+        DB::table('prop')->insert([
             'userid'            => $user->id,
             'proprietario'      => $request->proprietario,
             'cpf'               => $request->cpf,
@@ -66,6 +83,7 @@ class HomeController extends Controller
             'status'            => 0,
             'ano'               => 10
         ]);
+        return redirect('home');
     }
 
     public function inserir_veiculo(Request $request)
@@ -81,8 +99,26 @@ class HomeController extends Controller
             'status'            => 0,
             'observacao'        => 0,
             'ano'               => 10
-
         ]);
+        return redirect('home');
     }
+
+    public function insere_aluno(Request $request){
+        $user = Auth::user();
+        DB::table('veiculos')->insert([
+            'userid'            => $user->id,
+            'nomedeguerra'      => $request->nomedeguerra,
+            'nomealuno'         => $request->nomealuno,
+            'numerodoaluno'     => $request->numerodoaluno,
+            'status'            => 0,
+            'ano'               => 10
+        ]);
+
+    }
+
+
+
+
+
 
 }
