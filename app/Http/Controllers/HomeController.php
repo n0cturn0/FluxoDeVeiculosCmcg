@@ -27,33 +27,22 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $proprietario = DB::table('prop')->where('userid', '=', $user->id)->first();
-        $veiculo = DB::table('veiculos')->where('userid', '=', $user->id)->first();
-        $aluno = DB::table('aluno')->where('userid', '=', $user->id)->first();
+        //Get Ano vigente
+        $ano = DB::table('controleconfig')->where('status','=', 1)->get();
+        foreach ($ano as  $value) { $ano_vigente = $value->ano; $ano_extensao = $value->anoext; }
+        //DB
+        $proprietario = DB::table('prop')->where('userid', '=', $user->id)->where('ano', '=', $ano_vigente)->first();
+        $veiculo = DB::table('veiculos')->where('userid', '=', $user->id)->where('ano', '=', $ano_vigente)->first();
+        $aluno = DB::table('aluno')->where('userid', '=', $user->id)->where('ano', '=', $ano_vigente)->first();
+        //Se existe registro
+          if (is_null($proprietario)){ $status_proprietario = 5; } else { $status_proprietario = $proprietario->status; }
+          if (is_null($veiculo )){ $status_veiculo = 5; } else { $status_veiculo = $veiculo->status; }
+          if (is_null($aluno )){ $status_aluno = 5; } else { $status_aluno = $aluno->status; }
+        //array to view
+        $data =['status' => $status_proprietario, 'status_veiculo' => $status_veiculo,'status_aluno' => $status_aluno, 'ano_ext' => $value->anoext ];
+        return view('home',  $data);
 
 
-
-          if (is_null($proprietario)){
-            $status_proprietario = 5;
-           } else {
-            $status_proprietario = $proprietario->status;
-           }
-
-           if (is_null($veiculo )){
-            $status_veiculo = 5;
-          } else {
-            $status_veiculo = $veiculo->status;
-          }
-          if (is_null($aluno )){
-            $status_aluno = 5;
-          } else {
-            $status_aluno = $aluno->status;
-          }
-
-           $data =['status' => $status_proprietario, 'status_veiculo' => $status_veiculo,'status_aluno' => $status_aluno];
-
-
-     return view('home',  $data);
     }
 
     public function lte()
@@ -73,6 +62,10 @@ class HomeController extends Controller
     public function inserir(Request $request)
     {
         $user = Auth::user();
+
+        //Get Ano vigente
+        $ano = DB::table('controleconfig')->where('status','=', 1)->get();
+        foreach ($ano as  $value) { $ano_vigente = $value->ano; }
         DB::table('prop')->insert([
             'userid'            => $user->id,
             'proprietario'      => $request->proprietario,
@@ -81,13 +74,15 @@ class HomeController extends Controller
             'fotoname'          => $request->file('imagecnh'),
             'datavalidade'      => $request->datadevalidade,
             'status'            => 0,
-            'ano'               => 10
+            'ano'               => $ano_vigente
         ]);
         return redirect('home');
     }
 
     public function inserir_veiculo(Request $request)
     {
+        $ano = DB::table('controleconfig')->where('status','=', 1)->get();
+        foreach ($ano as  $value) { $ano_vigente = $value->ano; }
         $user = Auth::user();
         DB::table('veiculos')->insert([
             'userid'            => $user->id,
@@ -98,7 +93,7 @@ class HomeController extends Controller
             'documentoveiculo'  => $request->docveiculo,
             'status'            => 0,
             'observacao'        => 0,
-            'ano'               => 10
+            'ano'               => $ano_vigente
         ]);
         return redirect('home');
     }
