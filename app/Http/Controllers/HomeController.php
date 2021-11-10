@@ -34,14 +34,40 @@ class HomeController extends Controller
         $proprietario = DB::table('prop')->where('userid', '=', $user->id)->where('ano', '=', $ano_vigente)->first();
         $veiculo = DB::table('veiculos')->where('userid', '=', $user->id)->where('ano', '=', $ano_vigente)->first();
         $aluno = DB::table('aluno')->where('userid', '=', $user->id)->where('ano', '=', $ano_vigente)->first();
-        //Se existe registro
+
+
+
           if (is_null($proprietario)){ $status_proprietario = 5; } else { $status_proprietario = $proprietario->status; }
           if (is_null($veiculo )){ $status_veiculo = 5; } else { $status_veiculo = $veiculo->status; }
           if (is_null($aluno )){ $status_aluno = 5; } else { $status_aluno = $aluno->status; }
-        //array to view
-        $data =['status' => $status_proprietario, 'status_veiculo' => $status_veiculo,'status_aluno' => $status_aluno, 'ano_ext' => $value->anoext ];
-        return view('home',  $data);
+         //array to view
+         $data =['status' => $status_proprietario, 'status_veiculo' => $status_veiculo,'status_aluno' => $status_aluno, 'ano_ext' => $value->anoext ];
+         return view('home',  $data);
+    }
 
+
+    public function showcnh(){
+        $user = Auth::user();
+
+        //Get Ano vigente
+        $ano = DB::table('controleconfig')->where('status','=', 1)->get();
+        foreach ($ano as  $value) { $ano_vigente = $value->ano; $ano_extensao = $value->anoext; }
+        //Proprietário
+        $proprietario = DB::table('prop')
+        ->where('userid', $user->id)
+        ->where('ano', $ano_vigente)
+        ->get();
+        //Veiculo
+        $veiculo = DB::table('veiculos')
+        ->where('userid', $user->id)
+        ->where('ano' , $ano_vigente)
+        ->get();
+        //Aluno
+        $aluno = DB::table('aluno')
+        ->where('userid', $user->id)
+        ->where('ano', $ano_vigente)
+        ->get();
+        return view('showcnh');
 
     }
 
@@ -59,6 +85,14 @@ class HomeController extends Controller
         return view('aluno');
     }
 
+
+
+
+
+
+
+
+
     public function inserir(Request $request)
     {
         $user = Auth::user();
@@ -73,6 +107,7 @@ class HomeController extends Controller
             'telefone'          => $request->telefone,
             'fotoname'          => $request->file('imagecnh'),
             'datavalidade'      => $request->datadevalidade,
+            'selo'              => $request->selo,
             'status'            => 0,
             'ano'               => $ano_vigente
         ]);
@@ -98,16 +133,20 @@ class HomeController extends Controller
         return redirect('home');
     }
 
-    public function insere_aluno(Request $request){
+    public function inserealuno(Request $request){
+        $ano = DB::table('controleconfig')->where('status','=', 1)->get();
+        foreach ($ano as  $value) { $ano_vigente = $value->ano; }
         $user = Auth::user();
-        DB::table('veiculos')->insert([
+        DB::table('aluno')->insert([
             'userid'            => $user->id,
             'nomedeguerra'      => $request->nomedeguerra,
-            'nomealuno'         => $request->nomealuno,
+            'nomeluno'         => $request->nomealuno,
             'numerodoaluno'     => $request->numerodoaluno,
             'status'            => 0,
-            'ano'               => 10
+            'serie'             => $request->serie,
+            'ano'               => $ano_vigente
         ]);
+        return redirect('home');
 
     }
 

@@ -45,6 +45,11 @@
             <label for="exampleInputPassword1">Digite da data de validade da sua CNH</label>
             <input type="date" name="datadevalidade" class="form-control" id="exampleInputPassword1" placeholder="CPF">
           </div>
+
+          <div class="form-group">
+            <label for="exampleInputPassword1">Digite o número do seu selo</label>
+            <input type="text" name="selo" class="form-control" id="exampleInputPassword1" placeholder="Número do seu selo">
+          </div>
       <!-- /.card-body -->
 
       <div class="card-footer">

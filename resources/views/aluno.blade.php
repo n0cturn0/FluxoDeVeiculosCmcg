@@ -8,7 +8,8 @@
 
 @section('content')
 
-
+<form action="{{ route('inserealuno') }}" method="POST">
+@csrf
     <div class="card-body">
         <div class="form-group">
             <label for="exampleInputEmail1">Nome de guerra</label>
@@ -53,6 +54,4 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop
+

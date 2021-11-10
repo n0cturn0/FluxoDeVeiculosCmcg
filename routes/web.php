@@ -37,6 +37,10 @@ Route::get('/aluno', [App\Http\Controllers\HomeController::class, 'aluno'])->nam
 Route::post('/inserir', [App\Http\Controllers\HomeController::class, 'inserir'])->name('inserir');
 //Inserindo Veiculos
 Route::post('/insereveiculo', [App\Http\Controllers\HomeController::class, 'inserir_veiculo'])->name('insereveiculo');
+Route::post('/inserealuno', [App\Http\Controllers\HomeController::class, 'inserealuno'])->name('inserealuno');
+Route::get('/showcnh', [App\Http\Controllers\HomeController::class, 'showcnh'])->name('showcnh');
+
+
 /*
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin', function () {

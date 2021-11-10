@@ -20,6 +20,7 @@ class Aluno extends Migration
             $table->string('nomeluno');
             $table->integer('numerodoaluno');
             $table->integer('status');
+            $table->integer('serie');
             $table->integer('ano');
 
         });
