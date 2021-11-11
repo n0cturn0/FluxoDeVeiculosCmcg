@@ -67,7 +67,18 @@ class HomeController extends Controller
         ->where('userid', $user->id)
         ->where('ano', $ano_vigente)
         ->get();
-        return view('showcnh');
+        $data = [
+            //Prorietário
+            'proprietario'  => $proprietario,
+            'veiculo'       =>$veiculo,
+            'aluno'         =>$aluno
+
+
+
+
+
+        ];
+         return view('showcnh', $data);
 
     }
 
