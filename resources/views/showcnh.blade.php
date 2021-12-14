@@ -29,7 +29,7 @@
                     <h3>{{ $prop->cpf }}</h3>
                     <p>Vencimento da cnh:</p>
                     <h3>{{ $prop->datavalidade }}</h3>
-                    <p>Selo número:</p>
+                    <p>Número do selo:</p>
                     <h3>{{ $prop->selo }}</h3>
                       @endforeach
                   </div>
